@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalahari Threads — Style Inspired by the Kalahari (Demo Project by PulaWebs)</title>
+<meta name="description" content="Kalahari Threads is a fictional demo fashion brand built by PulaWebs to showcase modern web design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ DEMO BANNER ============ -->
+<div class="demo-banner" role="note">
+  This is a fictional demo project by <strong>PulaWebs</strong> — Kalahari Threads is not a real business, and no products can be purchased here.
+</div>
+
+<!-- ============ NAVIGATION ============ -->
+<header class="site-header">
+  <nav class="navbar" aria-label="Primary navigation">
+    <a href="#home" class="logo">Kalahari&nbsp;Threads</a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#collections" class="nav-link">Collections</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#lookbook" class="nav-link">Lookbook</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#featured" class="nav-link nav-cta">Explore Collection</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+  </nav>
+</header>
+
+<main id="home">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <svg class="hero-horizon" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="0" y1="360" x2="1200" y2="360" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M 100 360 A 350 350 0 0 1 800 360" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <div class="hero-inner">
+      <p class="eyebrow">PulaWebs Demo — Botswana-Inspired Streetwear</p>
+      <h1 class="hero-title">Style Inspired<br>by the Kalahari.</h1>
+      <p class="hero-sub">Contemporary fashion inspired by Botswana, designed for everyday expression.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-scroll="#featured">Explore Collection</button>
+        <button class="btn btn-ghost" data-scroll="#about">Discover Our Story</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED COLLECTION ============ -->
+  <section class="section" id="featured">
+    <div class="section-head">
+      <span class="section-mark" aria-hidden="true"></span>
+      <h2 class="section-title">Featured Collection</h2>
+      <p class="section-note">Demo products for portfolio purposes only — prices shown in Botswana Pula (P) are fictional and not for sale.</p>
+    </div>
+
+    <div class="product-grid">
+
+      <article class="product-card">
+        <div class="product-image ph-1" role="img" aria-label="Placeholder image of the Kalahari Oversized Tee"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Kalahari Oversized Tee</h3>
+          <p class="product-desc">A relaxed, heavyweight tee with a sun-bleached wash, built for warm days and easy layering.</p>
+          <div class="product-foot">
+            <span class="product-price">P 350 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Kalahari Oversized Tee" data-price="P 350" data-desc="A relaxed, heavyweight cotton tee with a sun-bleached wash and dropped shoulders.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image ph-2" role="img" aria-label="Placeholder image of the Desert Hoodie"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Desert Hoodie</h3>
+          <p class="product-desc">A brushed-fleece hoodie in muted sand tones, cut for movement with a lined kangaroo pocket.</p>
+          <div class="product-foot">
+            <span class="product-price">P 620 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Desert Hoodie" data-price="P 620" data-desc="Brushed-fleece hoodie in muted sand tones with a lined kangaroo pocket and ribbed cuffs.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image ph-3" role="img" aria-label="Placeholder image of the Botswana Heritage Shirt"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Botswana Heritage Shirt</h3>
+          <p class="product-desc">A structured button-up with subtle woven texture, nodding to heritage cloth without heavy print.</p>
+          <div class="product-foot">
+            <span class="product-price">P 480 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Botswana Heritage Shirt" data-price="P 480" data-desc="Structured button-up shirt with subtle woven texture and mother-of-pearl-style buttons.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image ph-4" role="img" aria-label="Placeholder image of the Kalahari Cargo Pants"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Kalahari Cargo Pants</h3>
+          <p class="product-desc">Tapered utility cargos in a durable twill, with reinforced stitching for daily wear.</p>
+          <div class="product-foot">
+            <span class="product-price">P 560 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Kalahari Cargo Pants" data-price="P 560" data-desc="Tapered utility cargo pants in durable twill with reinforced stitching and adjustable cuffs.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image ph-5" role="img" aria-label="Placeholder image of the Signature Cap"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Signature Cap</h3>
+          <p class="product-desc">A low-profile six-panel cap with a subtly embroidered horizon mark on the front.</p>
+          <div class="product-foot">
+            <span class="product-price">P 220 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Signature Cap" data-price="P 220" data-desc="Low-profile six-panel cap with an embroidered horizon mark and adjustable strap.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image ph-6" role="img" aria-label="Placeholder image of the Sandstone Jacket"><span class="demo-tag">Demo</span></div>
+        <div class="product-body">
+          <h3 class="product-name">Sandstone Jacket</h3>
+          <p class="product-desc">A lightweight shacket in a warm sandstone hue, built to layer from cool mornings into afternoon heat.</p>
+          <div class="product-foot">
+            <span class="product-price">P 780 <small>(demo price)</small></span>
+            <button class="btn btn-small" data-product="Sandstone Jacket" data-price="P 780" data-desc="Lightweight shacket in sandstone canvas with corozo buttons and a chest pocket.">View Item</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ COLLECTION CATEGORIES ============ -->
+  <section class="section section-alt" id="collections">
+    <div class="section-head">
+      <span class="section-mark" aria-hidden="true"></span>
+      <h2 class="section-title">Shop by Category</h2>
+    </div>
+
+    <div class="category-strip">
+      <div class="category-card">
+        <h3>T-Shirts</h3>
+        <p>Everyday staples, cut relaxed and built in breathable cotton.</p>
+      </div>
+      <div class="category-card">
+        <h3>Hoodies</h3>
+        <p>Heavyweight comfort layers for cool desert evenings.</p>
+      </div>
+      <div class="category-card">
+        <h3>Shirts</h3>
+        <p>Structured button-ups blending heritage texture with modern cuts.</p>
+      </div>
+      <div class="category-card">
+        <h3>Trousers</h3>
+        <p>Utility-driven bottoms designed to move through a full day.</p>
+      </div>
+      <div class="category-card">
+        <h3>Accessories</h3>
+        <p>Caps and finishing pieces that carry the Kalahari mark.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section about" id="about">
+    <div class="about-grid">
+      <div class="about-visual ph-about" role="img" aria-label="Placeholder image representing the Kalahari landscape"></div>
+      <div class="about-copy">
+        <span class="section-mark" aria-hidden="true"></span>
+        <h2 class="section-title">Born From the Kalahari</h2>
+        <p>Kalahari Threads is a fictional brand imagined for this demonstration, built around the idea of clothing shaped by Botswana's wide horizons, warm-toned landscapes and everyday street style.</p>
+        <p>The concept draws on open skies, sun-worn colour and understated texture — translated into modern, wearable silhouettes rather than literal print or pattern.</p>
+        <p class="about-disclaimer">Kalahari Threads is not a real company. This page exists solely to showcase web design and development work by PulaWebs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOOKBOOK ============ -->
+  <section class="section" id="lookbook">
+    <div class="section-head">
+      <span class="section-mark" aria-hidden="true"></span>
+      <h2 class="section-title">Lookbook</h2>
+      <p class="section-note">A demo gallery of placeholder imagery styling the collection.</p>
+    </div>
+
+    <div class="lookbook-grid">
+      <div class="look-item look-1" role="img" aria-label="Placeholder lookbook image: model wearing the Desert Hoodie against a sand-toned backdrop"></div>
+      <div class="look-item look-2" role="img" aria-label="Placeholder lookbook image: close-up detail of the Botswana Heritage Shirt fabric"></div>
+      <div class="look-item look-3" role="img" aria-label="Placeholder lookbook image: model wearing the Kalahari Cargo Pants and Signature Cap"></div>
+      <div class="look-item look-4" role="img" aria-label="Placeholder lookbook image: the Sandstone Jacket styled as an outer layer"></div>
+      <div class="look-item look-5" role="img" aria-label="Placeholder lookbook image: full outfit styled with the Kalahari Oversized Tee"></div>
+      <div class="look-item look-6" role="img" aria-label="Placeholder lookbook image: flat lay of accessories including the Signature Cap"></div>
+    </div>
+  </section>
+
+  <!-- ============ WHY KALAHARI THREADS ============ -->
+  <section class="section section-alt" id="why">
+    <div class="section-head">
+      <span class="section-mark" aria-hidden="true"></span>
+      <h2 class="section-title">Why Kalahari Threads?</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Botswana Inspired</h3>
+        <p>Every fictional piece in this demo draws its colour story from Botswana's landscapes.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Quality Materials</h3>
+        <p>Product concepts are described using durable, considered fabrics built to last.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Modern Design</h3>
+        <p>Clean silhouettes and restrained detailing keep the range feeling current.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Designed for Everyday Wear</h3>
+        <p>Pieces are imagined for daily life — easy to style, easy to move in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED STATEMENT ============ -->
+  <section class="statement">
+    <svg class="statement-horizon" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="0" y1="220" x2="1200" y2="220" stroke="currentColor" stroke-width="1"/>
+      <path d="M 500 220 A 200 200 0 0 1 900 220" fill="none" stroke="currentColor" stroke-width="1"/>
+    </svg>
+    <p class="statement-text">Where African inspiration<br>meets modern style.</p>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact-section" id="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="section-mark section-mark-light" aria-hidden="true"></span>
+        <h2 class="section-title">Get In Touch</h2>
+        <p>Have a question about this demo project? Send a message below — this form is for demonstration only and is not connected to a live inbox.</p>
+
+        <ul class="contact-details">
+          <li><strong>Demo Email:</strong> hello@kalahari-threads-demo.example</li>
+          <li><strong>Demo Phone:</strong> +267 000 0000</li>
+          <li><strong>Demo Studio:</strong> Gaborone, Botswana (fictional address)</li>
+        </ul>
+
+        <div class="social-links" aria-label="Social media links (demo)">
+          <a href="#" class="social-link" aria-label="Kalahari Threads on Instagram (demo link)">Instagram</a>
+          <a href="#" class="social-link" aria-label="Kalahari Threads on TikTok (demo link)">TikTok</a>
+          <a href="#" class="social-link" aria-label="Kalahari Threads on Facebook (demo link)">Facebook</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" autocomplete="name" required>
+          <span class="form-error" id="error-full-name" role="alert"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <span class="form-error" id="error-email" role="alert"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+          <span class="form-error" id="error-phone" role="alert"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <span class="form-error" id="error-message" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        <p class="form-success" id="form-success" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-logo">Kalahari Threads</p>
+      <p class="footer-tagline">Style Inspired by the Kalahari.</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#home">Home</a>
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="footer-social" aria-label="Social media links (demo)">
+      <a href="#" aria-label="Instagram (demo link)">Instagram</a>
+      <a href="#" aria-label="TikTok (demo link)">TikTok</a>
+      <a href="#" aria-label="Facebook (demo link)">Facebook</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>Demo Project by PulaWebs</p>
+    <p>&copy; <span id="footer-year"></span> Kalahari Threads (fictional brand). All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ============ PRODUCT MODAL ============ -->
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" id="product-modal">
+    <button class="modal-close" id="modal-close" aria-label="Close dialog">&times;</button>
+    <p class="modal-tag">Demo Product</p>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <p class="modal-price" id="modal-price"></p>
+    <p class="modal-desc" id="modal-desc"></p>
+    <p class="modal-note">This is a demo item for the PulaWebs portfolio. No purchase is possible on this site.</p>
+    <button class="btn btn-ghost modal-dismiss" id="modal-dismiss">Close</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
