@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motswana Kitchen | The Taste of Botswana</title>
+<meta name="description" content="Motswana Kitchen - Authentic traditional and modern Botswana cuisine. Order online for delivery or pickup.">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ NAVIGATION BAR ============ -->
+<header class="navbar" id="navbar">
+  <nav class="nav-container">
+    <a href="#home" class="logo">
+      <span class="logo-icon">🍲</span>
+      <span class="logo-text">Motswana <span>Kitchen</span></span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active-link">Home</a></li>
+      <li><a href="#menu" class="nav-link">Menu</a></li>
+      <li><a href="#about" class="nav-link">About Us</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="#order" class="btn btn-primary nav-order-btn">Order Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO SECTION ============ -->
+<section class="hero" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">🇧🇼 Proudly Botswana</p>
+    <h1 class="hero-title">The Taste of Botswana</h1>
+    <p class="hero-desc">
+      From slow-cooked Seswaa to warm Bogobe porridge, Motswana Kitchen brings you
+      authentic traditional flavours and modern Botswana dishes — made with love,
+      local ingredients, and true Setswana hospitality.
+    </p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn btn-primary">View Menu</a>
+      <a href="#order" class="btn btn-outline">Order Now</a>
+    </div>
+  </div>
+  <a href="#about" class="scroll-down" aria-label="Scroll down">
+    <span></span>
+  </a>
+</section>
+
+<!-- ============ ABOUT US ============ -->
+<section class="about" id="about">
+  <div class="section-container about-grid">
+    <div class="about-image">
+      <img src="https://placehold.co/600x600/1f5aa6/f7f3ea?text=Traditional%0ABotswana%20Food" alt="Traditional Botswana food spread">
+      <div class="about-image-badge">
+        <span class="badge-number">15+</span>
+        <span class="badge-text">Years of Tradition</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-tag">Our Story</p>
+      <h2 class="section-title">Cooked with Culture, Served with Heart</h2>
+      <p class="about-paragraph">
+        Motswana Kitchen was born out of a love for the rich culinary heritage of Botswana.
+        What started as a small family kitchen sharing Seswaa and Bogobe with neighbours has
+        grown into a beloved local favourite — without ever losing the heart of home cooking.
+      </p>
+      <p class="about-paragraph">
+        We believe great food tells a story. Every dish we serve is rooted in Setswana tradition,
+        prepared using fresh, locally-sourced ingredients from Botswana's own farms and markets.
+        From the way we pound our sorghum to the slow hours we spend stewing our meat, every step
+        honours the culture and hospitality we grew up with.
+      </p>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <span class="highlight-icon">🌾</span>
+          <div>
+            <h4>Local Ingredients</h4>
+            <p>Sourced fresh from Botswana farmers and markets</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-icon">🍽️</span>
+          <div>
+            <h4>Traditional Recipes</h4>
+            <p>Passed down through generations of Setswana cooking</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-icon">❤️</span>
+          <div>
+            <h4>Warm Hospitality</h4>
+            <p>Every customer is welcomed like family</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section class="menu" id="menu">
+  <div class="section-container">
+    <p class="section-tag center">Our Menu</p>
+    <h2 class="section-title center">Authentic Botswana Dishes</h2>
+    <p class="section-subtitle center">
+      Explore our selection of traditional and modern Botswana meals, made fresh daily.
+    </p>
+
+    <!-- Menu filter buttons -->
+    <div class="menu-filters" id="menuFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="traditional">Traditional</button>
+      <button class="filter-btn" data-filter="meat">Meat &amp; Stews</button>
+      <button class="filter-btn" data-filter="sides">Sides</button>
+      <button class="filter-btn" data-filter="snacks">Snacks</button>
+    </div>
+
+    <!-- Menu cards grid (populated also via JS, static cards shown here) -->
+    <div class="menu-grid" id="menuGrid">
+      <!-- Cards are generated by script.js from the menuItems array -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDER SECTION ============ -->
+<section class="order" id="order">
+  <div class="section-container">
+    <p class="section-tag center">Place Your Order</p>
+    <h2 class="section-title center">Build Your Order</h2>
+    <p class="section-subtitle center">
+      Select your favourite dishes, choose quantities, and submit your order below.
+    </p>
+
+    <div class="order-grid">
+      <!-- Left: quick select to add items -->
+      <div class="order-select-panel">
+        <h3>Select Food</h3>
+        <div class="order-select-row">
+          <select id="foodSelect" class="order-select">
+            <!-- options populated by JS -->
+          </select>
+          <input type="number" id="foodQty" class="qty-input" value="1" min="1" max="20" aria-label="Quantity">
+          <button type="button" id="addOrderBtn" class="btn btn-primary">Add</button>
+        </div>
+        <p class="order-hint">Tip: you can also click "Add to Order" on any menu card above.</p>
+
+        <h3 class="order-summary-title">Order Summary</h3>
+        <div id="orderSummary" class="order-summary">
+          <p class="empty-cart-msg" id="emptyCartMsg">Your order is empty. Add some delicious food! 🍲</p>
+        </div>
+
+        <div class="order-total-row">
+          <span>Total</span>
+          <span id="orderTotal">P0.00</span>
+        </div>
+      </div>
+
+      <!-- Right: customer details form -->
+      <div class="order-form-panel">
+        <h3>Your Details</h3>
+        <form id="orderForm" novalidate>
+          <div class="form-group">
+            <label for="customerName">Full Name</label>
+            <input type="text" id="customerName" placeholder="e.g. Kabo Molefe" required>
+            <span class="error-msg" id="nameError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="customerPhone">Phone Number</label>
+            <input type="tel" id="customerPhone" placeholder="e.g. 71 234 567" required>
+            <span class="error-msg" id="phoneError"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Delivery or Pickup?</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="deliveryType" value="delivery" checked>
+                <span>Delivery</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="deliveryType" value="pickup">
+                <span>Pickup</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customerAddress">Delivery Address / Pickup Notes</label>
+            <textarea id="customerAddress" rows="3" placeholder="e.g. Plot 1234, Extension 9, Gaborone"></textarea>
+            <span class="error-msg" id="addressError"></span>
+          </div>
+
+          <div class="payment-note">
+            💳 Payment is <strong>not</strong> collected online. Once you submit your order,
+            our team will contact you to confirm and arrange payment (cash, mobile money, or bank transfer).
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+        </form>
+
+        <!-- Success message shown after order submission -->
+        <div class="order-success" id="orderSuccess">
+          <span class="success-icon">✅</span>
+          <h4>Order Received — Thank You!</h4>
+          <p>We've received your order. Our team will contact you shortly to confirm details and arrange payment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="section-container">
+    <p class="section-tag center">Gallery</p>
+    <h2 class="section-title center">A Taste of What We Serve</h2>
+    <p class="section-subtitle center">A glimpse into our kitchen and the dishes we love to make.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://placehold.co/500x500/1f5aa6/f7f3ea?text=Seswaa" alt="Seswaa"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/c88a2c/1a1a1a?text=Bogobe" alt="Bogobe"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/1a1a1a/f7f3ea?text=Morogo" alt="Morogo"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/c88a2c/1a1a1a?text=Vetkoek" alt="Vetkoek"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/1f5aa6/f7f3ea?text=Beef+Stew" alt="Beef stew"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/1a1a1a/f7f3ea?text=Phane" alt="Phane"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/c88a2c/1a1a1a?text=Dikgobe" alt="Dikgobe"></div>
+      <div class="gallery-item"><img src="https://placehold.co/500x500/1f5aa6/f7f3ea?text=Traditional+Chicken" alt="Traditional chicken"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section class="why-us" id="why-us">
+  <div class="section-container">
+    <p class="section-tag center">Why Choose Us</p>
+    <h2 class="section-title center">What Makes Us Different</h2>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🇧🇼</span>
+        <h4>Authentic Botswana Flavours</h4>
+        <p>Every recipe stays true to traditional Setswana cooking passed down through generations.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🥬</span>
+        <h4>Fresh Ingredients</h4>
+        <p>We source fresh, quality ingredients daily from trusted local farmers and markets.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💰</span>
+        <h4>Affordable Prices</h4>
+        <p>Delicious, generous meals priced fairly so great food stays accessible to everyone.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">😊</span>
+        <h4>Friendly Service</h4>
+        <p>Warm, welcoming hospitality — every customer is treated like part of the family.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOMER REVIEWS ============ -->
+<section class="reviews" id="reviews">
+  <div class="section-container">
+    <p class="section-tag center">Testimonials</p>
+    <h2 class="section-title center">What Our Customers Say</h2>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The Seswaa tastes exactly like my grandmother's cooking. Motswana Kitchen brought back so many memories!"</p>
+        <div class="review-author">
+          <span class="author-avatar">TM</span>
+          <div>
+            <h5>Thato Moagi</h5>
+            <span>Gaborone</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Fast delivery and the Bogobe was so warm and comforting. Definitely my go-to for a taste of home."</p>
+        <div class="review-author">
+          <span class="author-avatar">KL</span>
+          <div>
+            <h5>Kagiso Letsholo</h5>
+            <span>Francistown</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <p class="review-text">"Loved the Vetkoek and beef stew combo! Great portions and friendly staff. Will order again."</p>
+        <div class="review-author">
+          <span class="author-avatar">BN</span>
+          <div>
+            <h5>Boitumelo Ntsima</h5>
+            <span>Maun</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="section-container contact-grid">
+    <div class="contact-info">
+      <p class="section-tag">Get In Touch</p>
+      <h2 class="section-title">Contact Motswana Kitchen</h2>
+      <p class="section-subtitle">Have a question or a special request? Reach out — we'd love to hear from you.</p>
+
+      <ul class="contact-list">
+        <li>
+          <span class="contact-icon">📞</span>
+          <div>
+            <h5>Phone</h5>
+            <p>+267 71 234 567</p>
+          </div>
+        </li>
+        <li>
+          <span class="contact-icon">✉️</span>
+          <div>
+            <h5>Email</h5>
+            <p>hello@motswanakitchen.co.bw</p>
+          </div>
+        </li>
+        <li>
+          <span class="contact-icon">📍</span>
+          <div>
+            <h5>Location</h5>
+            <p>Gaborone, Botswana</p>
+          </div>
+        </li>
+        <li>
+          <span class="contact-icon">🕒</span>
+          <div>
+            <h5>Business Hours</h5>
+            <p>Mon – Sat: 8:00 AM – 8:00 PM<br>Sunday: 10:00 AM – 4:00 PM</p>
+          </div>
+        </li>
+      </ul>
+
+      <a href="https://wa.me/26771234567" target="_blank" rel="noopener" class="btn btn-whatsapp">
+        <span>💬</span> Chat with us on WhatsApp
+      </a>
+    </div>
+
+    <div class="contact-map">
+      <img src="https://placehold.co/600x500/1f5aa6/f7f3ea?text=Gaborone%2C%20Botswana" alt="Motswana Kitchen location - Gaborone, Botswana">
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="section-container footer-grid">
+    <div class="footer-about">
+      <a href="#home" class="logo footer-logo">
+        <span class="logo-icon">🍲</span>
+        <span class="logo-text">Motswana <span>Kitchen</span></span>
+      </a>
+      <p>Bringing you the authentic taste of Botswana — traditional recipes, fresh ingredients, and true Setswana hospitality in every dish.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Twitter/X">🐦</a>
+        <a href="https://wa.me/26771234567" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>📞 +267 71 234 567</p>
+      <p>✉️ hello@motswanakitchen.co.bw</p>
+      <p>📍 Gaborone, Botswana</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="currentYear"></span> Motswana Kitchen. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Toast notification for "added to order" feedback -->
+<div class="toast" id="toast"></div>
+
+<!-- Back to top button -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
+
