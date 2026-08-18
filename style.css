@@ -1238,3 +1238,8 @@ section {
 .portfolio-card:hover .portfolio-preview img {
     transform: scale(1.05);
 }
+.logo-image {
+    height: 65px;
+    width: auto;
+    display: block;
+}
