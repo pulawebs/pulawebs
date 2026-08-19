@@ -1,565 +1,741 @@
 /* =========================================================
-   PulaWebs — script.js
+   PULAWEBs — INTERACTIVE STUDIO
    Vanilla JavaScript
 ========================================================= */
 
 (() => {
-    "use strict";
+  "use strict";
 
-    /* =========================================================
-       MOBILE NAVIGATION
-    ========================================================= */
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
 
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
+  const navbar = document.getElementById("navbar");
+  const navLinks = document.getElementById("navLinks");
+  const menuButton = document.getElementById("menuButton");
+  const cursor = document.querySelector(".cursor");
+  const contactForm = document.getElementById("contactForm");
 
-    if (menuToggle && navLinks) {
+  /* =========================================================
+     PAGE LOAD
+  ========================================================= */
 
-        menuToggle.addEventListener("click", () => {
+  window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
 
-            navLinks.classList.toggle("mobile-open");
+    setTimeout(() => {
+      document.querySelectorAll(".hero .reveal").forEach((element, index) => {
+        setTimeout(() => {
+          element.classList.add("visible");
+        }, index * 140);
+      });
+    }, 150);
+  });
 
-            menuToggle.classList.toggle("active");
+  /* =========================================================
+     NAVBAR
+  ========================================================= */
 
-            menuToggle.textContent =
-                navLinks.classList.contains("mobile-open")
-                    ? "✕"
-                    : "☰";
-        });
+  const updateNavbar = () => {
+    if (!navbar) return;
 
-
-        // Close menu after clicking a link
-
-        navLinks.querySelectorAll("a").forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                navLinks.classList.remove("mobile-open");
-
-                menuToggle.classList.remove("active");
-
-                menuToggle.textContent = "☰";
-            });
-
-        });
-
+    if (window.scrollY > 40) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
     }
+  };
 
+  window.addEventListener("scroll", updateNavbar, {
+    passive: true
+  });
 
-    /* =========================================================
-       ADD MOBILE NAV STYLES THROUGH JS
-       Keeps your original HTML clean.
-    ========================================================= */
+  updateNavbar();
 
-    const mobileStyle = document.createElement("style");
+  /* =========================================================
+     MOBILE MENU
+  ========================================================= */
 
-    mobileStyle.textContent = `
+  if (menuButton && navLinks) {
 
-        @media (max-width: 700px) {
+    menuButton.addEventListener("click", () => {
 
-            .nav-links.mobile-open {
+      navLinks.classList.toggle("active");
 
-                position: fixed;
+      const isOpen =
+        navLinks.classList.contains("active");
 
-                top: 80px;
-                left: 17px;
-                right: 17px;
+      menuButton.textContent =
+        isOpen ? "×" : "☰";
 
-                display: flex;
+      document.body.classList.toggle(
+        "menu-open",
+        isOpen
+      );
+    });
 
-                flex-direction: column;
+    navLinks.querySelectorAll("a").forEach(link => {
 
-                align-items: stretch;
+      link.addEventListener("click", () => {
 
-                gap: 0;
+        navLinks.classList.remove("active");
 
-                padding: 10px;
+        menuButton.textContent = "☰";
 
-                background: rgba(23, 25, 23, 0.97);
-
-                border: 1px solid rgba(255,255,255,0.1);
-
-                border-radius: 18px;
-
-                backdrop-filter: blur(20px);
-
-                box-shadow:
-                    0 20px 60px rgba(0,0,0,0.4);
-
-                animation: menuIn 0.25s ease forwards;
-
-            }
-
-            .nav-links.mobile-open a {
-
-                padding: 17px;
-
-                border-bottom:
-                    1px solid rgba(255,255,255,0.07);
-
-            }
-
-            .nav-links.mobile-open a:last-child {
-
-                border-bottom: none;
-
-            }
-
-            @keyframes menuIn {
-
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-            }
-
-        }
-
-    `;
-
-    document.head.appendChild(mobileStyle);
-
-
-    /* =========================================================
-       SCROLL HEADER
-    ========================================================= */
-
-    const header = document.querySelector(".site-header");
-
-    if (header) {
-
-        const updateHeader = () => {
-
-            if (window.scrollY > 40) {
-
-                header.classList.add("scrolled");
-
-            } else {
-
-                header.classList.remove("scrolled");
-
-            }
-
-        };
-
-        window.addEventListener("scroll", updateHeader);
-
-        updateHeader();
-
-
-        const headerStyle = document.createElement("style");
-
-        headerStyle.textContent = `
-
-            .site-header {
-
-                transition:
-                    background 0.3s ease,
-                    backdrop-filter 0.3s ease;
-
-            }
-
-            .site-header.scrolled {
-
-                position: fixed;
-
-                background:
-                    rgba(16,17,16,0.78);
-
-                backdrop-filter: blur(18px);
-
-                border-bottom:
-                    1px solid rgba(255,255,255,0.08);
-
-            }
-
-        `;
-
-        document.head.appendChild(headerStyle);
-
-    }
-
-
-    /* =========================================================
-       SCROLL REVEAL ANIMATIONS
-    ========================================================= */
-
-    const revealElements = document.querySelectorAll(
-        ".section, .work-card, .service-card, .process-card, .price-card, .payment-inner, .contact-form, .contact-info"
-    );
-
-    if ("IntersectionObserver" in window) {
-
-        const observer = new IntersectionObserver(
-            (entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add("revealed");
-
-                        observer.unobserve(entry.target);
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.12
-            }
+        document.body.classList.remove(
+          "menu-open"
         );
 
+      });
 
-        revealElements.forEach(element => {
+    });
+  }
 
-            element.classList.add("reveal");
+  /* =========================================================
+     SMOOTH ANCHOR SCROLL
+  ========================================================= */
 
-            observer.observe(element);
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const targetId =
+        link.getAttribute("href");
+
+      if (
+        !targetId ||
+        targetId === "#"
+      ) {
+        return;
+      }
+
+      const target =
+        document.querySelector(targetId);
+
+      if (!target) return;
+
+      event.preventDefault();
+
+      const navHeight =
+        navbar
+          ? navbar.offsetHeight
+          : 0;
+
+      const targetPosition =
+        target.getBoundingClientRect().top +
+        window.scrollY -
+        navHeight -
+        15;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth"
+      });
+
+    });
+
+  });
+
+  /* =========================================================
+     SCROLL REVEAL
+  ========================================================= */
+
+  const revealElements =
+    document.querySelectorAll(".reveal");
+
+  const revealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("visible");
+
+          revealObserver.unobserve(
+            entry.target
+          );
 
         });
 
-
-        const revealStyle = document.createElement("style");
-
-        revealStyle.textContent = `
-
-            .reveal {
-
-                opacity: 0;
-
-                transform: translateY(35px);
-
-                transition:
-                    opacity 0.8s ease,
-                    transform 0.8s ease;
-
-            }
-
-            .reveal.revealed {
-
-                opacity: 1;
-
-                transform: translateY(0);
-
-            }
-
-            .work-card:nth-child(2),
-            .service-card:nth-child(2),
-            .process-card:nth-child(2) {
-
-                transition-delay: 0.08s;
-
-            }
-
-            .work-card:nth-child(3),
-            .service-card:nth-child(3),
-            .process-card:nth-child(3) {
-
-                transition-delay: 0.16s;
-
-            }
-
-        `;
-
-        document.head.appendChild(revealStyle);
-
-    }
-
-
-    /* =========================================================
-       ACTIVE NAVIGATION
-    ========================================================= */
-
-    const sections = document.querySelectorAll(
-        "main section[id]"
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
+      }
     );
 
-    const navigationLinks = document.querySelectorAll(
-        ".nav-links a"
-    );
+  revealElements.forEach(element => {
 
     if (
-        sections.length &&
-        navigationLinks.length &&
-        "IntersectionObserver" in window
+      element.closest(".hero")
     ) {
-
-        const sectionObserver = new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting) return;
-
-                    const id = entry.target.id;
-
-                    navigationLinks.forEach(link => {
-
-                        link.classList.remove("active");
-
-                        if (
-                            link.getAttribute("href") ===
-                            `#${id}`
-                        ) {
-
-                            link.classList.add("active");
-
-                        }
-
-                    });
-
-                });
-
-            },
-            {
-                rootMargin: "-35% 0px -55% 0px"
-            }
-        );
-
-
-        sections.forEach(section => {
-
-            sectionObserver.observe(section);
-
-        });
-
-
-        const activeStyle = document.createElement("style");
-
-        activeStyle.textContent = `
-
-            .nav-links a.active {
-
-                color: #c8ff2f;
-
-            }
-
-        `;
-
-        document.head.appendChild(activeStyle);
-
+      return;
     }
 
+    revealObserver.observe(element);
 
-    /* =========================================================
-       SMOOTH BUTTON CLICK FEEDBACK
-    ========================================================= */
+  });
 
-    document.querySelectorAll(
-        ".button, .nav-cta, .price-button, .submit-button"
-    ).forEach(button => {
+  /* =========================================================
+     CUSTOM CURSOR
+  ========================================================= */
 
-        button.addEventListener("click", () => {
+  if (
+    cursor &&
+    window.matchMedia("(pointer: fine)").matches
+  ) {
 
-            button.classList.add("clicked");
+    let mouseX = 0;
+    let mouseY = 0;
 
-            setTimeout(() => {
+    let cursorX = 0;
+    let cursorY = 0;
 
-                button.classList.remove("clicked");
+    document.addEventListener(
+      "mousemove",
+      event => {
 
-            }, 250);
+        mouseX = event.clientX;
+        mouseY = event.clientY;
 
-        });
+      },
+      { passive: true }
+    );
+
+    const animateCursor = () => {
+
+      cursorX +=
+        (mouseX - cursorX) * 0.18;
+
+      cursorY +=
+        (mouseY - cursorY) * 0.18;
+
+      cursor.style.left =
+        `${cursorX}px`;
+
+      cursor.style.top =
+        `${cursorY}px`;
+
+      requestAnimationFrame(
+        animateCursor
+      );
+
+    };
+
+    animateCursor();
+
+    const interactiveElements =
+      document.querySelectorAll(
+        "a, button, .project, .service, .price-card"
+      );
+
+    interactiveElements.forEach(element => {
+
+      element.addEventListener(
+        "mouseenter",
+        () => {
+          cursor.classList.add("active");
+        }
+      );
+
+      element.addEventListener(
+        "mouseleave",
+        () => {
+          cursor.classList.remove("active");
+        }
+      );
+
+    });
+  }
+
+  /* =========================================================
+     MAGNETIC BUTTONS
+  ========================================================= */
+
+  const magneticElements =
+    document.querySelectorAll(".magnetic");
+
+  if (
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+
+    magneticElements.forEach(element => {
+
+      element.addEventListener(
+        "mousemove",
+        event => {
+
+          const rect =
+            element.getBoundingClientRect();
+
+          const x =
+            event.clientX -
+            rect.left -
+            rect.width / 2;
+
+          const y =
+            event.clientY -
+            rect.top -
+            rect.height / 2;
+
+          element.style.transform =
+            `translate(
+              ${x * 0.12}px,
+              ${y * 0.12}px
+            )`;
+
+        }
+      );
+
+      element.addEventListener(
+        "mouseleave",
+        () => {
+
+          element.style.transform =
+            "translate(0, 0)";
+
+        }
+      );
 
     });
 
+  }
 
-    /* =========================================================
-       CARD TILT EFFECT
-       Desktop only
-    ========================================================= */
+  /* =========================================================
+     PROJECT TILT
+  ========================================================= */
 
-    const tiltCards = document.querySelectorAll(
-        ".service-card, .price-card"
+  const projects =
+    document.querySelectorAll(".project");
+
+  if (
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+
+    projects.forEach(project => {
+
+      project.addEventListener(
+        "mousemove",
+        event => {
+
+          const rect =
+            project.getBoundingClientRect();
+
+          const x =
+            (event.clientX - rect.left) /
+            rect.width;
+
+          const y =
+            (event.clientY - rect.top) /
+            rect.height;
+
+          const rotateX =
+            (y - 0.5) * -4;
+
+          const rotateY =
+            (x - 0.5) * 4;
+
+          project.style.transform =
+            `
+              perspective(1000px)
+              rotateX(${rotateX}deg)
+              rotateY(${rotateY}deg)
+              translateY(-8px)
+            `;
+
+        }
+      );
+
+      project.addEventListener(
+        "mouseleave",
+        () => {
+
+          project.style.transform =
+            "";
+
+        }
+      );
+
+    });
+
+  }
+
+  /* =========================================================
+     PARALLAX HERO
+  ========================================================= */
+
+  const heroTitle =
+    document.querySelector(".hero-title");
+
+  if (heroTitle) {
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        const scroll =
+          window.scrollY;
+
+        if (scroll > window.innerHeight) {
+          return;
+        }
+
+        heroTitle.style.transform =
+          `translateY(${scroll * 0.12}px)`;
+
+        heroTitle.style.opacity =
+          Math.max(
+            0,
+            1 - scroll / 650
+          );
+
+      },
+      { passive: true }
     );
 
-    if (window.matchMedia("(min-width: 701px)").matches) {
+  }
 
-        tiltCards.forEach(card => {
+  /* =========================================================
+     SERVICE HOVER
+  ========================================================= */
 
-            card.addEventListener("mousemove", event => {
+  document
+    .querySelectorAll(".service")
+    .forEach(service => {
 
-                const rect = card.getBoundingClientRect();
+      service.addEventListener(
+        "mouseenter",
+        () => {
 
-                const x =
-                    event.clientX - rect.left;
+          service.style.setProperty(
+            "--service-progress",
+            "1"
+          );
 
-                const y =
-                    event.clientY - rect.top;
+        }
+      );
 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+      service.addEventListener(
+        "mouseleave",
+        () => {
 
-                const rotateX =
-                    ((y - centerY) / centerY) * -2;
+          service.style.setProperty(
+            "--service-progress",
+            "0"
+          );
 
-                const rotateY =
-                    ((x - centerX) / centerX) * 2;
+        }
+      );
 
-                card.style.transform =
-                    `perspective(800px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-5px)`;
+    });
 
-            });
+  /* =========================================================
+     PRICING CARD HOVER
+  ========================================================= */
 
+  document
+    .querySelectorAll(".price-card")
+    .forEach(card => {
 
-            card.addEventListener("mouseleave", () => {
+      card.addEventListener(
+        "mousemove",
+        event => {
 
-                card.style.transform = "";
+          if (
+            !window.matchMedia(
+              "(pointer: fine)"
+            ).matches
+          ) {
+            return;
+          }
 
-            });
+          const rect =
+            card.getBoundingClientRect();
 
-        });
+          const x =
+            (event.clientX - rect.left) /
+            rect.width;
 
-    }
+          const y =
+            (event.clientY - rect.top) /
+            rect.height;
 
+          const rotateX =
+            (y - 0.5) * -2;
 
-    /* =========================================================
-       CONTACT FORM
-    ========================================================= */
+          const rotateY =
+            (x - 0.5) * 2;
 
-    const contactForm =
-        document.querySelector(".contact-form");
+          card.style.transform =
+            `
+              perspective(1000px)
+              rotateX(${rotateX}deg)
+              rotateY(${rotateY}deg)
+              translateY(-8px)
+            `;
 
-    const submitButton =
-        document.querySelector(".submit-button");
+        }
+      );
 
-    if (contactForm && submitButton) {
+      card.addEventListener(
+        "mouseleave",
+        () => {
 
-        contactForm.addEventListener("submit", () => {
+          card.style.transform =
+            "";
 
-            submitButton.innerHTML =
-                `Sending... <span>→</span>`;
+        }
+      );
 
-            submitButton.style.opacity = "0.7";
+    });
 
-        });
+  /* =========================================================
+     CONTACT FORM
+  ========================================================= */
 
-    }
+  if (contactForm) {
 
+    contactForm.addEventListener(
+      "submit",
+      event => {
 
-    /* =========================================================
-       CURRENT YEAR
-    ========================================================= */
+        event.preventDefault();
 
-    const footerYear =
-        document.querySelector(".footer-bottom span");
+        const formData =
+          new FormData(contactForm);
 
-    if (footerYear) {
+        const name =
+          String(
+            formData.get("name") || ""
+          ).trim();
 
-        footerYear.textContent =
-            `© ${new Date().getFullYear()} PulaWebs`;
+        const email =
+          String(
+            formData.get("email") || ""
+          ).trim();
 
-    }
+        const phone =
+          String(
+            formData.get("phone") || ""
+          ).trim();
 
+        const service =
+          String(
+            formData.get("service") || ""
+          ).trim();
 
-    /* =========================================================
-       PARALLAX HERO GLOW
-    ========================================================= */
+        const message =
+          String(
+            formData.get("message") || ""
+          ).trim();
 
-    const hero = document.querySelector(".hero");
+        if (!name || !email) {
 
-    const glowOne =
-        document.querySelector(".hero-glow-one");
+          showFormMessage(
+            "Please enter your name and email."
+          );
 
-    const glowTwo =
-        document.querySelector(".hero-glow-two");
-
-    if (hero && glowOne && glowTwo) {
-
-        window.addEventListener("scroll", () => {
-
-            const scroll = window.scrollY;
-
-            if (scroll < window.innerHeight) {
-
-                glowOne.style.transform =
-                    `translateY(${scroll * 0.08}px)`;
-
-                glowTwo.style.transform =
-                    `translateY(${-scroll * 0.04}px)`;
-
-            }
-
-        });
-
-    }
-
-
-    /* =========================================================
-       ESC KEY CLOSES MOBILE MENU
-    ========================================================= */
-
-    document.addEventListener("keydown", event => {
-
-        if (event.key !== "Escape") return;
-
-        if (
-            navLinks &&
-            navLinks.classList.contains("mobile-open")
-        ) {
-
-            navLinks.classList.remove("mobile-open");
-
-            if (menuToggle) {
-
-                menuToggle.classList.remove("active");
-
-                menuToggle.textContent = "☰";
-
-            }
+          return;
 
         }
 
-    });
+        const subject =
+          encodeURIComponent(
+            `PulaWebs enquiry — ${name}`
+          );
 
+        const body =
+          encodeURIComponent(
+`New PulaWebs project enquiry
 
-    /* =========================================================
-       REDUCE MOTION SUPPORT
-    ========================================================= */
+Name:
+${name}
 
-    const prefersReducedMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+Email:
+${email}
 
-    if (prefersReducedMotion) {
+Phone / WhatsApp:
+${phone || "Not provided"}
 
-        document.documentElement.style.scrollBehavior =
-            "auto";
+Service:
+${service || "Not selected"}
 
-        document.querySelectorAll(
-            ".reveal"
-        ).forEach(element => {
+Project details:
+${message || "No details provided"}`
+          );
 
-            element.style.transition = "none";
+        showFormMessage(
+          "Opening your email app..."
+        );
 
-            element.style.opacity = "1";
+        setTimeout(() => {
 
-            element.style.transform = "none";
+          window.location.href =
+            `mailto:pulawebs@gmail.com?subject=${subject}&body=${body}`;
 
-        });
+        }, 400);
+
+      }
+    );
+
+  }
+
+  /* =========================================================
+     FORM MESSAGE
+  ========================================================= */
+
+  function showFormMessage(message) {
+
+    let messageElement =
+      document.querySelector(
+        ".form-message"
+      );
+
+    if (!messageElement) {
+
+      messageElement =
+        document.createElement("div");
+
+      messageElement.className =
+        "form-message";
+
+      messageElement.style.marginTop =
+        "15px";
+
+      messageElement.style.fontSize =
+        "13px";
+
+      messageElement.style.color =
+        "#aaa";
+
+      contactForm.appendChild(
+        messageElement
+      );
 
     }
 
+    messageElement.textContent =
+      message;
 
-    console.log(
-        "%cPulaWebs",
-        "font-size:24px;font-weight:bold;color:#c8ff2f;"
+  }
+
+  /* =========================================================
+     ACTIVE NAVIGATION
+  ========================================================= */
+
+  const sections =
+    document.querySelectorAll(
+      "section[id]"
     );
 
-    console.log(
-        "Web solutions that flow."
+  const navAnchors =
+    document.querySelectorAll(
+      ".nav-links a[href^='#']"
     );
+
+  const sectionObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const id =
+            entry.target.getAttribute("id");
+
+          navAnchors.forEach(anchor => {
+
+            anchor.classList.remove(
+              "active"
+            );
+
+            if (
+              anchor.getAttribute("href") ===
+              `#${id}`
+            ) {
+
+              anchor.classList.add(
+                "active"
+              );
+
+            }
+
+          });
+
+        });
+
+      },
+      {
+        rootMargin:
+          "-40% 0px -50% 0px"
+      }
+    );
+
+  sections.forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  /* =========================================================
+     KEYBOARD ACCESSIBILITY
+  ========================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Escape") {
+
+        if (
+          navLinks &&
+          navLinks.classList.contains(
+            "active"
+          )
+        ) {
+
+          navLinks.classList.remove(
+            "active"
+          );
+
+          if (menuButton) {
+            menuButton.textContent =
+              "☰";
+          }
+
+        }
+
+      }
+
+    }
+  );
+
+  /* =========================================================
+     REDUCE MOTION
+  ========================================================= */
+
+  const reducedMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+  if (reducedMotion.matches) {
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(element => {
+
+        element.classList.add(
+          "visible"
+        );
+
+      });
+
+  }
 
 })();
