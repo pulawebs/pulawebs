@@ -1,467 +1,565 @@
 /* =========================================================
-   PULAWEBs — MODERN SITE JAVASCRIPT
-   Clean interactions / smooth navigation / mobile menu /
-   pricing selection / contact form
-   ========================================================= */
+   PulaWebs — script.js
+   Vanilla JavaScript
+========================================================= */
 
 (() => {
-  "use strict";
+    "use strict";
 
-  /* =========================================================
-     HELPERS
-     ========================================================= */
+    /* =========================================================
+       MOBILE NAVIGATION
+    ========================================================= */
 
-  const header = document.querySelector(".site-header");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
 
-  const getHeaderHeight = () => {
-    return header ? header.offsetHeight : 0;
-  };
+    if (menuToggle && navLinks) {
 
-  const smoothScrollTo = (element) => {
-    if (!element) return;
+        menuToggle.addEventListener("click", () => {
 
-    const position =
-      element.getBoundingClientRect().top +
-      window.scrollY -
-      getHeaderHeight() -
-      15;
+            navLinks.classList.toggle("mobile-open");
 
-    window.scrollTo({
-      top: position,
-      behavior: "smooth"
-    });
-  };
+            menuToggle.classList.toggle("active");
+
+            menuToggle.textContent =
+                navLinks.classList.contains("mobile-open")
+                    ? "✕"
+                    : "☰";
+        });
 
 
-  /* =========================================================
-     1. SMOOTH NAVIGATION
-     ========================================================= */
+        // Close menu after clicking a link
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        navLinks.querySelectorAll("a").forEach(link => {
 
-    link.addEventListener("click", (event) => {
+            link.addEventListener("click", () => {
 
-      const href = link.getAttribute("href");
+                navLinks.classList.remove("mobile-open");
 
-      if (!href || href === "#") return;
+                menuToggle.classList.remove("active");
 
-      const target = document.querySelector(href);
+                menuToggle.textContent = "☰";
+            });
 
-      if (!target) return;
+        });
 
-      event.preventDefault();
-
-      smoothScrollTo(target);
-
-      history.pushState(null, "", href);
-
-    });
-
-  });
-
-
-  /* =========================================================
-     2. NAVIGATION SCROLL EFFECT
-     ========================================================= */
-
-  const updateHeader = () => {
-
-    if (!header) return;
-
-    if (window.scrollY > 20) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
     }
 
-  };
 
-  window.addEventListener("scroll", updateHeader);
+    /* =========================================================
+       ADD MOBILE NAV STYLES THROUGH JS
+       Keeps your original HTML clean.
+    ========================================================= */
 
-  updateHeader();
+    const mobileStyle = document.createElement("style");
+
+    mobileStyle.textContent = `
+
+        @media (max-width: 700px) {
+
+            .nav-links.mobile-open {
+
+                position: fixed;
+
+                top: 80px;
+                left: 17px;
+                right: 17px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 0;
+
+                padding: 10px;
+
+                background: rgba(23, 25, 23, 0.97);
+
+                border: 1px solid rgba(255,255,255,0.1);
+
+                border-radius: 18px;
+
+                backdrop-filter: blur(20px);
+
+                box-shadow:
+                    0 20px 60px rgba(0,0,0,0.4);
+
+                animation: menuIn 0.25s ease forwards;
+
+            }
+
+            .nav-links.mobile-open a {
+
+                padding: 17px;
+
+                border-bottom:
+                    1px solid rgba(255,255,255,0.07);
+
+            }
+
+            .nav-links.mobile-open a:last-child {
+
+                border-bottom: none;
+
+            }
+
+            @keyframes menuIn {
+
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(mobileStyle);
 
 
-  /* =========================================================
-     3. PRICING BUTTONS
-     ========================================================= */
+    /* =========================================================
+       SCROLL HEADER
+    ========================================================= */
 
-  const packageSelect = document.getElementById("package");
-  const contactSection = document.getElementById("contact");
+    const header = document.querySelector(".site-header");
 
-  const selectPackage = (packageName) => {
+    if (header) {
 
-    if (!packageSelect) return;
+        const updateHeader = () => {
 
-    const option = Array.from(packageSelect.options).find(
-      (item) => item.value === packageName
+            if (window.scrollY > 40) {
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+
+        };
+
+        window.addEventListener("scroll", updateHeader);
+
+        updateHeader();
+
+
+        const headerStyle = document.createElement("style");
+
+        headerStyle.textContent = `
+
+            .site-header {
+
+                transition:
+                    background 0.3s ease,
+                    backdrop-filter 0.3s ease;
+
+            }
+
+            .site-header.scrolled {
+
+                position: fixed;
+
+                background:
+                    rgba(16,17,16,0.78);
+
+                backdrop-filter: blur(18px);
+
+                border-bottom:
+                    1px solid rgba(255,255,255,0.08);
+
+            }
+
+        `;
+
+        document.head.appendChild(headerStyle);
+
+    }
+
+
+    /* =========================================================
+       SCROLL REVEAL ANIMATIONS
+    ========================================================= */
+
+    const revealElements = document.querySelectorAll(
+        ".section, .work-card, .service-card, .process-card, .price-card, .payment-inner, .contact-form, .contact-info"
     );
 
-    if (option) {
-      packageSelect.value = packageName;
+    if ("IntersectionObserver" in window) {
 
-      packageSelect.dispatchEvent(
-        new Event("change", {
-          bubbles: true
-        })
-      );
-    }
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
 
-  };
+                entries.forEach(entry => {
 
+                    if (entry.isIntersecting) {
 
-  const pricingButtons = {
+                        entry.target.classList.add("revealed");
 
-    ".pricing-card-foundation .btn": "foundation",
+                        observer.unobserve(entry.target);
 
-    ".pricing-card-signature .btn": "signature"
+                    }
 
-  };
+                });
 
-
-  Object.entries(pricingButtons).forEach(
-    ([selector, packageName]) => {
-
-      const button = document.querySelector(selector);
-
-      if (!button) return;
-
-      button.addEventListener("click", (event) => {
-
-        if (!contactSection) return;
-
-        event.preventDefault();
-
-        selectPackage(packageName);
-
-        smoothScrollTo(contactSection);
-
-        history.pushState(
-          null,
-          "",
-          "#contact"
+            },
+            {
+                threshold: 0.12
+            }
         );
 
-      });
+
+        revealElements.forEach(element => {
+
+            element.classList.add("reveal");
+
+            observer.observe(element);
+
+        });
+
+
+        const revealStyle = document.createElement("style");
+
+        revealStyle.textContent = `
+
+            .reveal {
+
+                opacity: 0;
+
+                transform: translateY(35px);
+
+                transition:
+                    opacity 0.8s ease,
+                    transform 0.8s ease;
+
+            }
+
+            .reveal.revealed {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+            .work-card:nth-child(2),
+            .service-card:nth-child(2),
+            .process-card:nth-child(2) {
+
+                transition-delay: 0.08s;
+
+            }
+
+            .work-card:nth-child(3),
+            .service-card:nth-child(3),
+            .process-card:nth-child(3) {
+
+                transition-delay: 0.16s;
+
+            }
+
+        `;
+
+        document.head.appendChild(revealStyle);
 
     }
-  );
 
 
-  /* =========================================================
-     4. CONTACT FORM
-     ========================================================= */
+    /* =========================================================
+       ACTIVE NAVIGATION
+    ========================================================= */
 
-  const form = document.querySelector(".contact-form");
+    const sections = document.querySelectorAll(
+        "main section[id]"
+    );
 
-  if (form) {
+    const navigationLinks = document.querySelectorAll(
+        ".nav-links a"
+    );
+
+    if (
+        sections.length &&
+        navigationLinks.length &&
+        "IntersectionObserver" in window
+    ) {
+
+        const sectionObserver = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) return;
+
+                    const id = entry.target.id;
+
+                    navigationLinks.forEach(link => {
+
+                        link.classList.remove("active");
+
+                        if (
+                            link.getAttribute("href") ===
+                            `#${id}`
+                        ) {
+
+                            link.classList.add("active");
+
+                        }
+
+                    });
+
+                });
+
+            },
+            {
+                rootMargin: "-35% 0px -55% 0px"
+            }
+        );
+
+
+        sections.forEach(section => {
+
+            sectionObserver.observe(section);
+
+        });
+
+
+        const activeStyle = document.createElement("style");
+
+        activeStyle.textContent = `
+
+            .nav-links a.active {
+
+                color: #c8ff2f;
+
+            }
+
+        `;
+
+        document.head.appendChild(activeStyle);
+
+    }
+
+
+    /* =========================================================
+       SMOOTH BUTTON CLICK FEEDBACK
+    ========================================================= */
+
+    document.querySelectorAll(
+        ".button, .nav-cta, .price-button, .submit-button"
+    ).forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            button.classList.add("clicked");
+
+            setTimeout(() => {
+
+                button.classList.remove("clicked");
+
+            }, 250);
+
+        });
+
+    });
+
+
+    /* =========================================================
+       CARD TILT EFFECT
+       Desktop only
+    ========================================================= */
+
+    const tiltCards = document.querySelectorAll(
+        ".service-card, .price-card"
+    );
+
+    if (window.matchMedia("(min-width: 701px)").matches) {
+
+        tiltCards.forEach(card => {
+
+            card.addEventListener("mousemove", event => {
+
+                const rect = card.getBoundingClientRect();
+
+                const x =
+                    event.clientX - rect.left;
+
+                const y =
+                    event.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX =
+                    ((y - centerY) / centerY) * -2;
+
+                const rotateY =
+                    ((x - centerX) / centerX) * 2;
+
+                card.style.transform =
+                    `perspective(800px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)
+                     translateY(-5px)`;
+
+            });
+
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "";
+
+            });
+
+        });
+
+    }
+
+
+    /* =========================================================
+       CONTACT FORM
+    ========================================================= */
+
+    const contactForm =
+        document.querySelector(".contact-form");
 
     const submitButton =
-      form.querySelector('button[type="submit"]');
+        document.querySelector(".submit-button");
 
-    const showMessage = (message, success = true) => {
+    if (contactForm && submitButton) {
 
-      let messageBox =
-        form.querySelector(".form-message");
+        contactForm.addEventListener("submit", () => {
 
-      if (!messageBox) {
+            submitButton.innerHTML =
+                `Sending... <span>→</span>`;
 
-        messageBox =
-          document.createElement("div");
+            submitButton.style.opacity = "0.7";
 
-        messageBox.className =
-          "form-message";
-
-        form.insertBefore(
-          messageBox,
-          submitButton
-        );
-
-      }
-
-      messageBox.textContent = message;
-
-      messageBox.style.padding = "14px 16px";
-      messageBox.style.borderRadius = "10px";
-      messageBox.style.fontSize = "14px";
-
-      if (success) {
-
-        messageBox.style.background = "#edf8f0";
-        messageBox.style.color = "#20753b";
-
-      } else {
-
-        messageBox.style.background = "#fff0f0";
-        messageBox.style.color = "#a52828";
-
-      }
-
-    };
-
-
-    form.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-        const name =
-          document.getElementById("fullname");
-
-        const email =
-          document.getElementById("email");
-
-        if (!name || !email) return;
-
-        if (!name.value.trim()) {
-
-          showMessage(
-            "Please enter your name.",
-            false
-          );
-
-          name.focus();
-
-          return;
-
-        }
-
-
-        if (!email.value.trim()) {
-
-          showMessage(
-            "Please enter your email.",
-            false
-          );
-
-          email.focus();
-
-          return;
-
-        }
-
-
-        if (!email.validity.valid) {
-
-          showMessage(
-            "Please enter a valid email address.",
-            false
-          );
-
-          email.focus();
-
-          return;
-
-        }
-
-
-        if (submitButton) {
-
-          submitButton.disabled = true;
-
-          submitButton.textContent =
-            "Sending...";
-
-        }
-
-
-        try {
-
-          const response =
-            await fetch(
-              form.action,
-              {
-                method: "POST",
-
-                body:
-                  new FormData(form),
-
-                headers: {
-                  Accept:
-                    "application/json"
-                }
-              }
-            );
-
-
-          if (response.ok) {
-
-            showMessage(
-              "Thanks! Your enquiry has been sent. We'll get back to you soon.",
-              true
-            );
-
-            form.reset();
-
-          } else {
-
-            showMessage(
-              "Something went wrong. Please try again.",
-              false
-            );
-
-          }
-
-        } catch (error) {
-
-          showMessage(
-            "We couldn't send your message right now. Please try again.",
-            false
-          );
-
-        } finally {
-
-          if (submitButton) {
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-              "Submit";
-
-          }
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /* =========================================================
-     5. BUTTON PRESS EFFECT
-     ========================================================= */
-
-  document
-    .querySelectorAll(".btn")
-    .forEach((button) => {
-
-      button.addEventListener(
-        "mousedown",
-        () => {
-
-          button.style.transform =
-            "scale(0.97)";
-
-        }
-      );
-
-
-      button.addEventListener(
-        "mouseup",
-        () => {
-
-          button.style.transform = "";
-
-        }
-      );
-
-
-      button.addEventListener(
-        "mouseleave",
-        () => {
-
-          button.style.transform = "";
-
-        }
-      );
-
-    });
-
-
-  /* =========================================================
-     6. PORTFOLIO IMAGE LAZY LOADING
-     ========================================================= */
-
-  document
-    .querySelectorAll(".portfolio-preview img")
-    .forEach((image) => {
-
-      image.loading = "lazy";
-
-    });
-
-
-  /* =========================================================
-     7. SIMPLE REVEAL ANIMATIONS
-     ========================================================= */
-
-  const revealElements = document.querySelectorAll(
-    ".service-card, .pricing-card, .portfolio-card, .step-card, .contact-form, .contact-details"
-  );
-
-
-  if ("IntersectionObserver" in window) {
-
-    const observer =
-      new IntersectionObserver(
-        (entries, observer) => {
-
-          entries.forEach((entry) => {
-
-            if (!entry.isIntersecting) return;
-
-            entry.target.classList.add(
-              "is-visible"
-            );
-
-            observer.unobserve(
-              entry.target
-            );
-
-          });
-
-        },
-        {
-          threshold: 0.12
-        }
-      );
-
-
-    revealElements.forEach((element) => {
-
-      element.classList.add(
-        "reveal"
-      );
-
-      observer.observe(element);
-
-    });
-
-  }
-
-
-  /* =========================================================
-     8. KEYBOARD ACCESSIBILITY
-     ========================================================= */
-
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (event.key !== "Escape") return;
-
-      document.activeElement?.blur();
+        });
 
     }
-  );
 
 
-  /* =========================================================
-     9. CURRENT YEAR
-     ========================================================= */
+    /* =========================================================
+       CURRENT YEAR
+    ========================================================= */
 
-  const footerYear =
-    document.querySelector(
-      ".footer-bottom p"
+    const footerYear =
+        document.querySelector(".footer-bottom span");
+
+    if (footerYear) {
+
+        footerYear.textContent =
+            `© ${new Date().getFullYear()} PulaWebs`;
+
+    }
+
+
+    /* =========================================================
+       PARALLAX HERO GLOW
+    ========================================================= */
+
+    const hero = document.querySelector(".hero");
+
+    const glowOne =
+        document.querySelector(".hero-glow-one");
+
+    const glowTwo =
+        document.querySelector(".hero-glow-two");
+
+    if (hero && glowOne && glowTwo) {
+
+        window.addEventListener("scroll", () => {
+
+            const scroll = window.scrollY;
+
+            if (scroll < window.innerHeight) {
+
+                glowOne.style.transform =
+                    `translateY(${scroll * 0.08}px)`;
+
+                glowTwo.style.transform =
+                    `translateY(${-scroll * 0.04}px)`;
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================================
+       ESC KEY CLOSES MOBILE MENU
+    ========================================================= */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key !== "Escape") return;
+
+        if (
+            navLinks &&
+            navLinks.classList.contains("mobile-open")
+        ) {
+
+            navLinks.classList.remove("mobile-open");
+
+            if (menuToggle) {
+
+                menuToggle.classList.remove("active");
+
+                menuToggle.textContent = "☰";
+
+            }
+
+        }
+
+    });
+
+
+    /* =========================================================
+       REDUCE MOTION SUPPORT
+    ========================================================= */
+
+    const prefersReducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+    if (prefersReducedMotion) {
+
+        document.documentElement.style.scrollBehavior =
+            "auto";
+
+        document.querySelectorAll(
+            ".reveal"
+        ).forEach(element => {
+
+            element.style.transition = "none";
+
+            element.style.opacity = "1";
+
+            element.style.transform = "none";
+
+        });
+
+    }
+
+
+    console.log(
+        "%cPulaWebs",
+        "font-size:24px;font-weight:bold;color:#c8ff2f;"
     );
 
-  if (footerYear) {
-
-    footerYear.innerHTML =
-      `&copy; ${new Date().getFullYear()} PulaWebs. All rights reserved.`;
-
-  }
-
+    console.log(
+        "Web solutions that flow."
+    );
 
 })();
